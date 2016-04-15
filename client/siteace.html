@@ -69,8 +69,8 @@
 
 <template name='website_list'>
   <div class='container'>
-    {{ #each websites}}
-      {{ > website_item}}
+    {{ #each websites }}
+      {{ > website_item }}
     {{ /each}}
   </div>
 </template>
@@ -78,7 +78,7 @@
 <template name='website_item'>
   <div class='panel panel-default'>
     <div class='panel-heading'>
-      <div class='pull-right muted panel-posted-on'>{{ formatDate createdOn }}</div>
+      <div class='pull-right muted panel-posted-on'>{{ timeAgo createdOn }}</div>
       <h3 class='panel-title'>
         <span class='label label-info panel-rating'>{{ rating }}</span>
         <span class='panel-votes inline'>
@@ -103,12 +103,63 @@
         </a>
         <a href='/sites/{{ _id }}' class='btn btn-default' title='View Post'>View Post</a>
       </div>
-      <div class='vote-error inline'></div>
+      {{ #unless currentUser }}<div class='vote-error inline'></div>{{ /unless }}
     </div>
   </div>
 </template>
 
 <template name='website_details'>
-  {{ title }}
+  <div class='container'>
+    <div class='row'>
+      <div class='col-xs-12'>
+        {{ > website_item }}
+      </div>
+    </div>
+  </div>
+  {{ > comments_list }}
+</template>
 
+<template name='comments_list'>
+  <div class='container'>
+    <h4><i class='fa fa-comments'></i> Comments</h4>
+    {{ > comment_form }}
+    {{ #each comments website_id=_id }}
+      {{ > comment_item }}
+    {{ /each }}
+  </div>
+</template>
+
+<template name='comment_form'>
+  <div class='row'>
+    <div class='col-md-6 col-sm-8 col-xs-12'>
+      {{ #if currentUser }}
+        <form class='js-save-comment-form' id='{{ _id }}'>
+          <div class='input-group'>
+            <input type='text' class='form-control' id='text' placeholder='Join the conversation...'>
+            <span class='input-group-btn'>
+              <button class='btn btn-default' type='submit'>Submit</button>
+            </span>
+          </div>
+        </form>
+      {{ else }}
+        <div class='vote-error'>Log in to leave a comment...</div>
+      {{ /if }}
+    </div>
+  </div>
+</template>
+
+<template name='comment_item'>
+  <div class='row'>
+    <div class='col-xs-12'>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          {{ text }}
+        </div>
+        <div class='panel-footer muted'>
+          <div class='pull-right muted panel-posted-on'>{{ timeAgo createdOn }}</div>
+          {{ postedBy _id }}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

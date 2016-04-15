@@ -26,3 +26,6 @@ a:focus, a:hover { text-decoration: none; outline: none; }
 .panel-votes { color: #C4C4C4; font-size: 12px; vertical-align: top; }
 .panel-upvotes { color: #88BA88; }
 .panel-downvotes { color: #DB9A9A; }
+
+/* SITE DETAILS */
+.js-save-comment-form { margin-bottom: 10px; }
