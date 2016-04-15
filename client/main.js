@@ -1,7 +1,71 @@
+// ROUTING
+Router.configure({
+  layoutTemplate: 'ApplicationLayout'
+});
+
+Router.route('/', function() {
+  this.render('navbar', {
+    to: 'navbar'
+  });
+  this.render('website_list', {
+    to: 'main'
+  });
+});
+
+Router.route('/sites/:_id', function() {
+  this.render('navbar', {
+    to: 'navbar'
+  });
+  this.render('website_details', {
+    to: 'main',
+    data: function() {
+      return Websites.findOne({ _id: this.params._id });
+    }
+  })
+});
+
+// GLOBAL HELPERS
 Template.registerHelper('formatDate', function(date) {
   return moment(date).fromNow();
 });
 
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_AND_EMAIL'
+});
+
+var incrementWebsiteRating = function(website_id) {
+  var votes = Votes.find({ websiteId: website_id });
+  var rating = 0;
+  if (votes.count() > 0) {
+    votes.map(function(vote) { rating += vote.direction; });
+  }
+  Websites.update({ _id: website_id }, { $set: { rating: rating } });
+}
+
+Template.website_form.events({
+  'submit .js-save-website-form': function(event){
+    var title = event.target.title.value;
+    var url = event.target.url.value;
+    var desc = event.target.description.value;
+    var user = Meteor.user();
+    if (user) {
+      Websites.insert({
+        title: title,
+        url: url,
+        description: desc,
+        createdOn: new Date(),
+        created_by_id: user._id,
+        rating: 0
+      });
+    }
+    $('.website-add-button').removeClass('open');
+    event.target.reset();
+    return false;
+  }
+});
+
+
+// WEBSITES ROOT PAGE HELPERS
 Template.website_list.helpers({
   websites: function(){
     return Websites.find({}, { sort: { rating: -1 } });
@@ -24,19 +88,6 @@ Template.website_item.helpers({
     return Votes.find({ websiteId: website_id, direction: -1 }).count();
   }
 });
-
-Accounts.ui.config({
-  passwordSignupFields: 'USERNAME_AND_EMAIL'
-});
-
-var incrementWebsiteRating = function(website_id) {
-  var votes = Votes.find({ websiteId: website_id });
-  var rating = 0;
-  if (votes.count() > 0) {
-    votes.map(function(vote) { rating += vote.direction; });
-  }
-  Websites.update({ _id: website_id }, { $set: { rating: rating } });
-}
 
 Template.website_item.events({
   'click .js-upvote': function(event){
@@ -77,28 +128,6 @@ Template.website_item.events({
     } else {
       $(event.target).parent().siblings('.vote-error').text('You must login to vote...');
     }
-    return false;
-  }
-});
-
-Template.website_form.events({
-  'submit .js-save-website-form': function(event){
-    var title = event.target.title.value;
-    var url = event.target.url.value;
-    var desc = event.target.description.value;
-    var user = Meteor.user();
-    if (user) {
-      Websites.insert({
-        title: title,
-        url: url,
-        description: desc,
-        createdOn: new Date(),
-        created_by_id: user._id,
-        rating: 0
-      });
-    }
-    $('.website-add-button').removeClass('open');
-    event.target.reset();
     return false;
   }
 });

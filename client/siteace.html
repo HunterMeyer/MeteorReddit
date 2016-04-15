@@ -3,6 +3,14 @@
 </head>
 
 <body>
+</body>
+
+<template name='ApplicationLayout'>
+  {{ > yield 'navbar'}}
+  {{ > yield 'main' }}
+</template>
+
+<template name='navbar'>
   <div class='navbar navbar-inverse navbar-fixed-top' role='navigation'>
     <div class='container'>
       <div class='navbar-header'>
@@ -32,11 +40,7 @@
       </div>
     </div>
   </div>
-
-  <div class='container'>
-    {{ > website_list }}
-  </div>
-</body>
+</template>
 
 <template name='website_form'>
   <form class='js-save-website-form'>
@@ -63,11 +67,12 @@
   </form>
 </template>
 
-<!-- template that displays several website items -->
 <template name='website_list'>
-  {{ #each websites}}
-    {{ > website_item}}
-  {{ /each}}
+  <div class='container'>
+    {{ #each websites}}
+      {{ > website_item}}
+    {{ /each}}
+  </div>
 </template>
 
 <template name='website_item'>
@@ -96,9 +101,14 @@
         <a href='#' class='btn btn-default js-downvote' title='Downvote'>
           <i class='fa fa-thumbs-o-down'></i>
         </a>
-        <a href='#' class='btn btn-default'>View Post</a>
+        <a href='/sites/{{ _id }}' class='btn btn-default'>View Post</a>
       </div>
       <div class='vote-error inline'></div>
     </div>
   </div>
+</template>
+
+<template name='website_details'>
+  {{ title }}
+
 </template>
