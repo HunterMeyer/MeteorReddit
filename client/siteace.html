@@ -84,7 +84,7 @@
         <span class='panel-votes inline'>
           (<span class='panel-upvotes'>{{ upvotes _id }}</span>/<span class='panel-downvotes'>{{ downvotes _id }}</span>)
         </span>
-        <a href='{{ url }}'>{{ title }}</a>
+        <a href='{{ url }}' target='_blank' title='{{ title }}'>{{ title }}</a>
       </h3>
     </div>
     <div class='panel-body'>
@@ -101,7 +101,7 @@
         <a href='#' class='btn btn-default js-downvote' title='Downvote'>
           <i class='fa fa-thumbs-o-down'></i>
         </a>
-        <a href='/sites/{{ _id }}' class='btn btn-default'>View Post</a>
+        <a href='/sites/{{ _id }}' class='btn btn-default' title='View Post'>View Post</a>
       </div>
       <div class='vote-error inline'></div>
     </div>
