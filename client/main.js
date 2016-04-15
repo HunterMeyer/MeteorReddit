@@ -151,7 +151,6 @@ Template.comment_form.events({
   'submit .js-save-comment-form': function(event){
     var text = event.target.text.value;
     var user = Meteor.user();
-    debugger;
     if (user) {
       Comments.insert({
         text: text,
