@@ -1,14 +1,22 @@
 if (Meteor.isServer) {
+
   Meteor.startup(function () {
+    if(!Meteor.users.findOne()) {
+      var newUserId = Meteor.users.insert({
+         emails: ['user@example.com'],
+         username: 'Anonymouse'
+      });
+      Accounts.setPassword(newUserId, 'fakepassword32!');
+    }
     if (!Websites.findOne()){
-      console.log('No websites yet. Creating starter data.');
+      userId = Meteor.users.findOne({ username: 'Anonymouse' })._id;
       Websites.insert({
         title: 'Goldsmiths Computing Department',
         url: 'http://www.gold.ac.uk/computing/',
         description: 'This is where this course was developed.',
         createdOn: new Date(),
         rating: 0,
-        created_by_id: null
+        created_by_id: userId
       });
       Websites.insert({
         title: 'University of London',
@@ -16,7 +24,7 @@ if (Meteor.isServer) {
         description: 'University of London International Programme.',
         createdOn: new Date(),
         rating: 0,
-        created_by_id: null
+        created_by_id: userId
       });
       Websites.insert({
         title: 'Coursera',
@@ -24,7 +32,7 @@ if (Meteor.isServer) {
         description: 'Universal access to the world’s best education.',
         createdOn: new Date(),
         rating: 0,
-        created_by_id: null
+        created_by_id: userId
       });
       Websites.insert({
         title: 'Google',
@@ -32,7 +40,7 @@ if (Meteor.isServer) {
         description: 'Popular search engine.',
         createdOn: new Date(),
         rating: 0,
-        created_by_id: null
+        created_by_id: userId
       });
     }
   });
