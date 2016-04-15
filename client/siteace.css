@@ -1,5 +1,6 @@
 /* UNIVERSAL */
 body { background: #E6E6E6; padding-top: 70px; }
+a { transition: ease all 0.3s; }
 a:focus, a:hover { text-decoration: none; outline: none; }
 
 /* HELPERS */
@@ -17,7 +18,7 @@ a:focus, a:hover { text-decoration: none; outline: none; }
 
 /* SITE LIST */
 .panel-rating { padding: 0.4em 0.6em .35em; display: inline-block; vertical-align: text-top; }
-.panel-title a:hover, .panel-title a:focus { text-decoration: none; }
+.panel-title a:hover, .panel-title a:focus { text-decoration: none; color: #5bc0de; }
 .panel-posted-on { font-size: 10px; margin-top: 3px; }
 .panel-posted-by { margin-top: 6px; }
 .vote-error { color: #D97878; margin-left: 5px; }
