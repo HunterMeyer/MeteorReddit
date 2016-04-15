@@ -1,0 +1,27 @@
+/* UNIVERSAL */
+body { background: #E6E6E6; padding-top: 70px; }
+a:focus, a:hover { text-decoration: none; outline: none; }
+
+/* HELPERS */
+.hidden_div { display: none; }
+.inline { display: inline-block; }
+.muted { color: #A6A6A6; }
+
+/* NAVBAR */
+#login-dropdown-list > .dropdown-menu, .website-form-dropdown { 
+  background: #F5F5F5;
+}
+.website-add-button { margin-left: 10px; }
+.website-form-dropdown { width: 400px; }
+.website-form-dropdown > form { padding: 5px 10px; }
+
+/* SITE LIST */
+.panel-rating { padding: 0.4em 0.6em .35em; display: inline-block; vertical-align: text-top; }
+.panel-title a:hover, .panel-title a:focus { text-decoration: none; }
+.panel-posted-on { font-size: 10px; margin-top: 3px; }
+.panel-posted-by { margin-top: 6px; }
+.vote-error { color: #D97878; margin-left: 5px; }
+
+.panel-votes { color: #C4C4C4; font-size: 12px; vertical-align: top; }
+.panel-upvotes { color: #88BA88; }
+.panel-downvotes { color: #DB9A9A; }
